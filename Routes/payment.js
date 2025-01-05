@@ -2,7 +2,7 @@ import express from 'express'
 import {
   verify,
   userOrder,
-  checkout,
+  
   allOrders,
 } from "../Controllers/payment.js";
 import {Authenticated} from '../Middlewares/auth.js'
@@ -10,7 +10,6 @@ import {Authenticated} from '../Middlewares/auth.js'
 const router = express.Router();
 
 // // checkout
-router.post('/checkout',checkout);
 
 // // verify-payment & save to db
 router.post('/verify-payment',verify)

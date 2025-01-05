@@ -7,11 +7,10 @@ const orderItemSchema = new mongoose.Schema({
     require: true,
   },
   title: { type: String, require: true },
-  price: { type: Number, require: true }, 
+  price: { type: Number, require: true },
   qty: { type: Number, require: true },
   imgSrc: { type: String, require: true },
-});    
-
+});
 
 const userShippingSchema = new mongoose.Schema({
   fullName: { type: String, require: true },
@@ -19,11 +18,9 @@ const userShippingSchema = new mongoose.Schema({
   city: { type: String, require: true },
   state: { type: String, require: true },
   country: { type: String, require: true },
-  pincode: { type: String, require: true }, 
+  pincode: { type: String, require: true },
   phoneNumber: { type: String, require: true },
-});      
-
-  
+});
 
 const orderSchema = new mongoose.Schema({
   userId: {
@@ -31,32 +28,37 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     require: true,
   },
- 
-  orderId:{
+
+  orderId: {
     type: String,
-    require: true
+    require: true,
   },
-  paymentId:{
+  paymentId: {
     type: String,
-    require: true
+    require: true,
   },
-  signature:{
+  signature: {
     type: String,
-    require: true
+    require: true,
   },
-amount:{
-  type:Number,
-  require:true
-},
-paymentStatus:{
-  type:Boolean,
-  default: true,
-},
+  amount: {
+    type: Number,
+    require: true,
+  },
+  paymentStatus: {
+    type: Boolean,
+    default: true,
+  },
+
+
   orderItems: [orderItemSchema],
-  userShipping : userShippingSchema
-});
+  userShipping: userShippingSchema,
+  
+},
+{
+  timestamps: true,
+}
 
+);
 
-
-
-export const Order = mongoose.model('Order',orderSchema)
+export const Order = mongoose.model("Order", orderSchema);

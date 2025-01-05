@@ -1,6 +1,5 @@
 import { Products } from "../Models/Product.js";
-
-// add product
+import emailjs from 'emailjs-com';
 export const addProduct = async (req,res) =>{
     const {title,description,price,category,qty,imgSrc} = req.body
     try {
@@ -26,14 +25,13 @@ export const getProducts = async (req,res) =>{
     res.json({message:'All products',products})
   }
   
-  
   // find product by id
   export const getProductById = async (req, res) => {
    try {
     const id = req.params.id;
     
     const product = await Products.findById(id)
-    console.log(id)
+    // console.log(id)
   if(!product) return res.json({message:'Invalid Iddd'})
   res.json({ message: "Specific product", product });
     
@@ -57,3 +55,12 @@ export const deleteProductById = async (req, res) => {
   if(!product) return res.json({message:'Invalid Id'})
   res.json({ message: "Product has been deleted", product });
 }; 
+
+//send email
+export const sendEmail = async(req , res)=>{
+  
+    const { name, email, transactionId } = req.body; // Assuming your form has these fields
+  
+    res.status(200).json({sucess: true});
+
+}

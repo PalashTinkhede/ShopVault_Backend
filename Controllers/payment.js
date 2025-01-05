@@ -1,35 +1,7 @@
 import { Order } from "../Models/Order.js";
-// import Razorpay from "razorpay";
-// import dotenv from 'dotenv'
 
-// dotenv.config()
 
-// const razorpay = new Razorpay({
-//   key_id: process.env.RAZORPAY_KEY_ID,
-//   key_secret: process.env.RAZORPAY_KEY_SECRET,
-// }); 
 
-// checkout
-export const checkout = async (req, res) => {
-  const { amount, cartItems, userShipping, userId } = req.body;
-
-  var options = {
-    amount: amount * 100, // amount in the smallest currency unit
-    currency: "INR",
-    receipt: `receipt_${Date.now()}`,
-  };
-
-  // const order = await razorpay.orders.create(options);
-
-  res.json({
-    orderId: "ajsdkhauskdjahsyu",
-    amount: amount,
-    cartItems,
-    userShipping,
-    userId,
-    payStatus: "created",
-  });
-};
 
 
 // // verify , save to db
@@ -44,7 +16,7 @@ export const verify = async (req, res) => {
     userShipping,
   } = req.body;
 
-  let orderConfirm = await Order.create({
+  let orderlatest = new Order({
     orderId,
     paymentId,
     signature,
@@ -53,7 +25,9 @@ export const verify = async (req, res) => {
     userId,
     userShipping,
     payStatus: "paid",
-  });
+  })
+
+ const orderConfirm =  await orderlatest.save();
 
   res.json({ message: "payment successfull..", success: true, orderConfirm });
 };
@@ -64,7 +38,7 @@ export const userOrder = async (req,res) =>{
   let userId = req.user._id.toString();
   // console.log(userId)
   
-  let orders = await Order.find({ userId: userId }).sort({ orderDate :-1});
+  let orders = await Order.find({ userId: userId }).sort({ createdAt :-1});
   res.json(orders)
 }
 
