@@ -1,5 +1,5 @@
 import { Cart } from "../Models/Cart.js";
-
+import {Products} from './../Models/Product.js';
 // add To Cart
 export const addToCart = async (req, res) => {
   const { productId, title, price, qty, imgSrc } = req.body;
@@ -11,7 +11,13 @@ export const addToCart = async (req, res) => {
   if (!cart) {
     cart = new Cart({ userId, items: [] }); 
   }
-   
+  let product = await Products.findById(productId);
+  if(product){
+  //  console.log(product);
+   product.qty = product.qty-1;
+   await product.save();
+  //  console.log(product);
+  }
   const itemIndex = cart.items.findIndex(
     (item) => item.productId.toString() === productId
   );
