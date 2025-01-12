@@ -13,7 +13,7 @@ const app = express();
 app.use(bodyParser.json())
 
 app.use(cors({
-  origin:"https://shop-vault-frontend.vercel.app/",
+  origin:"https://shop-vault-frontend.vercel.app",
   methods:[ "GET","POST","PUT","DELETE"],
   credentials:true
 }))
