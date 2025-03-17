@@ -19,7 +19,7 @@ router.put('/:id',updateProductById)
 router.delete('/:id',deleteProductById)
 
 //send email
-router.post("/send-email", sendEmail);
+router.post("/email", sendEmail);
 
 
 export default router

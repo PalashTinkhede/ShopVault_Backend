@@ -1,5 +1,6 @@
 import { Products } from "../Models/Product.js";
-import emailjs from 'emailjs-com';
+import nodemailer from 'nodemailer';
+import http from 'http'
 export const addProduct = async (req,res) =>{
     const {title,description,price,category,qty,imgSrc} = req.body
     try {
@@ -57,10 +58,53 @@ export const deleteProductById = async (req, res) => {
 }; 
 
 //send email
+
 export const sendEmail = async(req , res)=>{
   
-    const { name, email, transactionId } = req.body; // Assuming your form has these fields
-  
-    res.status(200).json({sucess: true});
+  const { name, email, transactionId } = req.body;
 
-}
+  
+    const auth = nodemailer.createTransport({
+        service: "gmail",
+        secure : true,
+        port : 465,
+        auth: {
+            user: "palash.tinkhede8124@gmail.com",
+            pass: "jysezzjfwmldhidq"
+
+        }
+    });
+
+    // const receiver1 = {
+    //     from : "palash.tinkhede8124@gmail.com",
+    //     to : email,
+    //     subject : "no-reply conformation mail",
+    //     text : `this is conformation mail to conform the order with transtaion id ${transactionId}`
+    // };
+
+    // auth.sendMail(receiver1, (error, emailResponse) => {
+    //     if(error)
+    //     throw error;
+    //     console.log("success!");
+    //     response.end();
+    // });
+
+    const receiver2 = {
+        from : "palash.tinkhede8124@gmail.com",
+        to : "palash.tinkhede@gmail.com",
+        subject : "no-reply order placed mail",
+        text : `this is conformation of the order with transtaion id ${transactionId}`
+    };
+console.log("helo")
+    auth.sendMail(receiver2, (error, emailResponse) => {
+        if(error)
+        throw res.status(502);
+        console.log("success!");
+        response.end();
+    });
+    
+
+
+  
+res.status(200).json({message : "sucess"});
+};

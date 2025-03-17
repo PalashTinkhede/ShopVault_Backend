@@ -13,13 +13,13 @@ const app = express();
 app.use(bodyParser.json())
 
 app.use(cors({
-  origin:"https://shop-vault-frontend.vercel.app",
+  origin:true,
   methods:[ "GET","POST","PUT","DELETE"],
   credentials:true
 }))
 
 // home testing route
-app.get('/',(req,res)=>res.json({messge:'This is home route'}))
+app.get('/',(req,res)=>res.json({ message: 'This is home route'}))
 
 // user Router
 app.use('/api/user',userRouter)
