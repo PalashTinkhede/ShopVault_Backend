@@ -32,13 +32,13 @@ export const login = async (req, res) => {
     if (!validPassword) {
       return res.json({ message: "Invalid Credential", success: false });
     }
-    else{
-       token = jwt.sign({ userId: user._id }, "!@#$%^&*()", {
+    else {
+      token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
         expiresIn: "365d",
       });
     }
 
-   
+
 
     res.json({ message: `Welcome ${user.name}`, token, success: true });
   } catch (error) {
